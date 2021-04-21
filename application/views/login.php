@@ -81,7 +81,7 @@
 </body>
 
 </html>
-
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $("input").change(function() {
@@ -93,7 +93,7 @@
 
     function login() {
         $.ajax({
-            url: "<?php echo site_url('login/login_user') ?>",
+            url: "<?= site_url('login/login_user'); ?>",
             type: "POST",
             data: $('#form').serialize(),
             dataType: "JSON",

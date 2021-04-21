@@ -7,7 +7,7 @@
              <li class="menu-header">Dashboard</li>
              <li class="nav-item dropdown">
                  <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-                 <a href="#" class="nav-link"><i class="fas fa-users"></i><span>Mahasiswa</span></a>
+                 <a href="<?= base_url(); ?>Pendaftaran/" class="nav-link"><i class="fas fa-users"></i><span>Mahasiswa</span></a>
                  <a href="#" class="nav-link"><i class="fas fa-book"></i><span>Kelas</span></a>
              </li>
          </ul>

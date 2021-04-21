@@ -11,8 +11,8 @@ class Login extends CI_Controller
     }
     public function index()
     {
-        // $data['judul'] = 'login';
-        $this->load->view('login');
+        $data['judul'] = 'login';
+        $this->load->view('login', $data);
     }
 
 
@@ -32,21 +32,21 @@ class Login extends CI_Controller
                 $id = $show['id'];
                 $username = $show['username'];
                 $password = $show['password'];
-                // $nim = $show['nim'];
-                // $name = $show['name'];
-                // $email = $show['email'];
-                // $phone = $show['phone'];
+                $nim = $show['nim'];
+                $name = $show['name'];
+                $email = $show['email'];
+                $phone = $show['phone'];
             }
 
-            $this->session->get_userdata([
+            $this->session->set_userdata([
                 'mhsLogin' => TRUE,
                 'id' => $id,
                 'username' => $username,
                 'password' => $password,
-                // 'nim' => $nim,
-                // 'name' => $name,
-                // 'email' => $email,
-                // 'phone' => $phone,
+                'nim' => $nim,
+                'name' => $name,
+                'email' => $email,
+                'phone' => $phone,
             ]);
         }
 
@@ -74,15 +74,18 @@ class Login extends CI_Controller
             $data['input_error'][] = 'password';
             $data['error_string'][] = 'Username/password tidak sesuai';
             $data['status'] = FALSE;
-        } else if ($this->input->post('username') == '') {
+        }
+        if ($this->input->post('username') == '') {
             $data['input_error'][] = 'username';
             $data['error_string'][] = 'Username tidak boleh kosong';
             $data['status'] = FALSE;
-        } else if ($this->input->post('password') == '') {
+        }
+        if ($this->input->post('password') == '') {
             $data['input_error'][] = 'password';
             $data['error_string'][] = 'password tidak boleh kosong';
             $data['status'] = FALSE;
-        } else if ($data['status'] === false) {
+        }
+        if ($data['status'] === FALSE) {
             echo json_encode($data);
             exit;
         }
@@ -92,12 +95,12 @@ class Login extends CI_Controller
     {
         $this->session->unset_userdata('mhsLogin');
         $this->session->unset_userdata('id');
-        // $this->session->unset_userdata('name');
         $this->session->unset_userdata('username');
         $this->session->unset_userdata('password');
-        // $this->session->unset_userdata('nim');
-        // $this->session->unset_userdata('email');
-        // $this->session->unset_userdata('phone');
+        $this->session->unset_userdata('name');
+        $this->session->unset_userdata('nim');
+        $this->session->unset_userdata('email');
+        $this->session->unset_userdata('phone');
 
         redirect('login');
     }

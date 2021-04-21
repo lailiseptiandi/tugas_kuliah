@@ -8,6 +8,11 @@ class Model_pendaftaran extends CI_Model
         parent::__construct();
     }
 
+    public function getAllUser()
+    {
+        return $this->db->get('mahasiswa');
+    }
+
     public function simpanPendaftaran()
     {
         $data = [
@@ -21,4 +26,16 @@ class Model_pendaftaran extends CI_Model
         ];
         $this->db->insert('mahasiswa', $data);
     }
+
+    public function delete($where, $table)
+    {
+        $this->db->where($where);
+        $this->db->delete($table);
+    }
+
+    // function hapus_data($where, $table)
+    // {
+    //     $this->db->where($where);
+    //     $this->db->delete($table);
+    // }
 }
