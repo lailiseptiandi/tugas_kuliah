@@ -1,16 +1,16 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_pendaftaran extends CI_Model
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    // public function __construct()
+    // {
+    //     parent::__construct();
+    // }
 
     public function getAllUser()
     {
-        return $this->db->get('mahasiswa');
+        return $this->db->get('mahasiswa')->result();
     }
 
     public function simpanPendaftaran()

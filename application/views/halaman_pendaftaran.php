@@ -100,47 +100,55 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="<?= base_url(); ?>pendaftaran/simpan_pendaftaran" method="post">
+                        <form id="simpan" method="post">
                             <div class="modal-body">
 
                                 <div class="form-group">
-                                    <label for="">Nama Lengkap</label>
-                                    <input type="text" name="name" class="form-control">
-                                </div>
-                                <div class="form-group">
                                     <label for="">NPM</label>
-                                    <input type="text" name="nim" class="form-control">
+                                    <input type="text" name="nim" class="form-control" id="nim">
+                                    <small class="nim-error text-danger"></small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">No HP</label>
-                                    <input type="text" name="phone" class="form-control">
+                                    <label for="">Nama Lengkap</label>
+                                    <input type="text" name="name" class="form-control" id="name">
+                                    <small class="name-error text-danger"></small>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Username :</label>
-                                    <input type="text" name="username" class="form-control">
+                                    <input type="text" name="username" class="form-control" id="username">
+                                    <small class="username-error text-danger"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Email :</label>
+                                    <input type="email" name="email" class="form-control" id="email">
+                                    <small class="email-error text-danger"></small>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="">Email :</label>
-                                            <input type="email" name="email" class="form-control">
+                                            <label for="">Password :</label>
+                                            <input type="password" name="password" class="form-control" id="password">
+                                            <small class="password-error text-danger"></small>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="">Password</label>
-                                            <input type="password" name="password" class="form-control">
+                                            <label for="">Ketik Ulang Password</label>
+                                            <input type="password" name="passconf" class="form-control" id="passconf">
+                                            <small class="passconf-error text-danger"></small>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="form-group">
-                                    <label for=""></label>
-                                    <input type="text" name="username" class="form-control">
-                                </div> -->
+                                <div class="form-group">
+                                    <label for="">No HP</label>
+                                    <input type="text" name="phone" class="form-control" id="phone">
+                                    <small class="phone-error text-danger"></small>
+                                </div>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                <input type="button" name="" id="validasi" value="Simpan Data" class="btn btn-primary">
                             </div>
                         </form>
                     </div>
@@ -154,7 +162,42 @@
         </div>
     </div>
 
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <?php $this->load->view('includes/script'); ?>
+
+
+    <script>
+        var baseUrl = '<?= base_url() ?>';
+        $('#validasi').on('click', function() {
+            var data = $('#simpan').serialize();
+            $.ajax({
+                url: baseUrl + 'Pendaftaran/validasi/',
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                success: function(data) {
+                    if (data !== 'sukses') {
+                        $(".username-error").html(data.username);
+                        $(".email-error").html(data.email);
+                        $(".password-error").html(data.password);
+                        $(".passconf-error").html(data.passconf);
+                        $(".nim-error").html(data.nim);
+                        $(".phone-error").html(data.phone);
+                        $(".name-error").html(data.name);
+                    } else {
+                        location.reload();
+                        getAll();
+                        $("#nim").val("");
+                        $("#name").val("");
+                        $("#username").val("");
+                        $("#password").val("");
+                        $("#email").val("");
+                        $("#phone").val("");
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
